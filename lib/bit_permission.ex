@@ -1,4 +1,4 @@
-defmodule Permissions do
+defmodule BitPermission do
   @moduledoc false
 
   use Bitwise
@@ -8,10 +8,10 @@ defmodule Permissions do
 
   ## Examples
 
-      iex> Permissions.can?(1, 1)
+      iex> BitPermission.can?(1, 1)
       {:ok}
 
-      iex> Permissions.can?(1, 2)
+      iex> BitPermission.can?(1, 2)
       {:error, :NO_PERMISSIONS}
 
   """
@@ -29,10 +29,10 @@ defmodule Permissions do
 
   ## Examples
 
-      iex> Permissions.inherit(1, 3)
+      iex> BitPermission.inherit(1, 3)
       3
 
-      iex> Permissions.inherit(1, 0)
+      iex> BitPermission.inherit(1, 0)
       1
 
   """
@@ -46,10 +46,10 @@ defmodule Permissions do
 
   ## Examples
 
-      iex> Permissions.remove(1, 3)
+      iex> BitPermission.remove(1, 3)
       0
 
-      iex> Permissions.remove(1, 0)
+      iex> BitPermission.remove(1, 0)
       1
 
   """
@@ -63,10 +63,10 @@ defmodule Permissions do
 
   ## Examples
 
-      iex> Permissions.to_atom_list(0, [:create, :read, :write, :delete])
+      iex> BitPermission.to_atom_list(0, [:create, :read, :write, :delete])
       []
 
-      iex> Permissions.to_atom_list(1, [:create, :read, :write, :delete])
+      iex> BitPermission.to_atom_list(1, [:create, :read, :write, :delete])
       [:create]
 
   """
@@ -89,10 +89,10 @@ defmodule Permissions do
 
   ## Examples
 
-      iex> Permissions.to_bit_type([], [:create, :read, :write, :delete])
+      iex> BitPermission.to_bit_type([], [:create, :read, :write, :delete])
       0
 
-      iex> Permissions.to_bit_type([:create], [:create, :read, :write, :delete])
+      iex> BitPermission.to_bit_type([:create], [:create, :read, :write, :delete])
       1
 
   """

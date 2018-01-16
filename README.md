@@ -1,21 +1,21 @@
-# Permissions
+# BitPermission
 
 **TODO: Add description**
 
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `permissions` to your list of dependencies in `mix.exs`:
+by adding `bit_permission` to your list of dependencies in `mix.exs`:
 
 ```elixir
 def deps do
   [
-    {:permissions, "~> 0.1.0"}
+    {:bit_permission, "~> 0.1.0"}
   ]
 end
 ```
 
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/permissions](https://hexdocs.pm/permissions).
+be found at [https://hexdocs.pm/bit_permission](https://hexdocs.pm/bit_permission).
 

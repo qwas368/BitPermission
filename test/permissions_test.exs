@@ -46,4 +46,17 @@ defmodule PermissionsTest do
     assert Permissions.remove(8, 1) == 8
   end
 
+  test "map/2 error handle" do
+    assert Permissions.to_atom_list(1, []) == []
+    assert Permissions.to_atom_list(0, [:create, :read, :write, :delete]) == []
+  end
+
+  test "map/2 basic" do
+    assert Permissions.to_atom_list(1, []) == []
+    assert Permissions.to_atom_list(0, [:create, :read, :write, :delete]) == []
+    assert Permissions.to_atom_list(1, [:create]) == [:create]
+    assert Permissions.to_atom_list(7, [:create, :read, :write, :delete]) == [:create, :read, :write]
+    assert Permissions.to_atom_list(15, [:create, :read, :write, :delete]) == [:create, :read, :write, :delete]
+    assert Permissions.to_atom_list(0, ["create", "select"]) == []
+  end
 end
