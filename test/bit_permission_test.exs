@@ -46,16 +46,32 @@ defmodule BitPermissionTest do
     assert BitPermission.remove(8, 1) == 8
   end
 
-  test "map/2 error handle" do
-    assert BitPermission.to_atom_list(1, []) == []
-    assert BitPermission.to_atom_list(0, [:create, :read, :write, :delete]) == []
+  test "to_list/2 error handle" do
+    assert_raise FunctionClauseError, fn ->
+      BitPermission.to_list(1, nil)
+    end
   end
 
-  test "map/2 basic" do
-    assert BitPermission.to_atom_list(1, []) == []
-    assert BitPermission.to_atom_list(0, [:create, :read, :write, :delete]) == []
-    assert BitPermission.to_atom_list(1, [:create]) == [:create]
-    assert BitPermission.to_atom_list(7, [:create, :read, :write, :delete]) == [:create, :read, :write]
-    assert BitPermission.to_atom_list(15, [:create, :read, :write, :delete]) == [:create, :read, :write, :delete]
+  test "to_list/2 atom list" do
+    assert BitPermission.to_list(1, []) == []
+    assert BitPermission.to_list(0, [:create, :read, :write, :delete]) == []
+    assert BitPermission.to_list(1, [:create]) == [:create]
+    assert BitPermission.to_list(7, [:create, :read, :write, :delete]) == [:create, :read, :write]
+    assert BitPermission.to_list(15, [:create, :read, :write, :delete]) == [:create, :read, :write, :delete]
+  end
+
+  test "to_list/2 string list" do
+    assert BitPermission.to_list(1, []) == []
+    assert BitPermission.to_list(0, ["create", "read", "write", "delete"]) == []
+    assert BitPermission.to_list(1, ["create"]) == ["create"]
+    assert BitPermission.to_list(7, ["create", "read", "write", "delete"]) == ["create", "read", "write"]
+    assert BitPermission.to_list(15, ["create", "read", "write", "delete"]) == ["create", "read", "write", "delete"]
+  end
+
+  test "to_integer/2" do
+    assert BitPermission.to_integer([], []) == 0
+    assert BitPermission.to_integer([], [:create]) == 0
+    assert BitPermission.to_integer([:create], [:create]) == 1
+    assert BitPermission.to_integer([:create, :delete], [:create, :read, :write, :delete]) == 9
   end
 end

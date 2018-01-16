@@ -59,45 +59,56 @@ defmodule BitPermission do
   end
 
   @doc """
-  bit-type permission to atom-list permission
+  integer-type permission to list-type permission
 
   ## Examples
 
-      iex> BitPermission.to_atom_list(0, [:create, :read, :write, :delete])
+      iex> BitPermission.to_list(0, [:create, :read, :write, :delete])
       []
 
-      iex> BitPermission.to_atom_list(1, [:create, :read, :write, :delete])
+      iex> BitPermission.to_list(1, [:create, :read, :write, :delete])
       [:create]
 
   """
-  @spec to_atom_list(integer, list) :: list
-  def to_atom_list(user, list) when is_integer(user) and is_list(list) do
-    map_permissions(user, list, [])
+  @spec to_list(integer, list) :: list
+  def to_list(user, list) when is_integer(user) and is_list(list) do
+    bit_to_list(user, list, [])
   end
 
-  defp map_permissions(_, [], acc), do: acc
-  defp map_permissions(p, [head | tail], acc) do
+  defp bit_to_list(_, [], acc), do: acc
+  defp bit_to_list(p, [head | tail], acc) do
     if(Bitwise.band(p, 1) == 1) do
-      map_permissions(p >>> 1, tail, acc ++ [head])
+      bit_to_list(p >>> 1, tail, acc ++ [head])
     else
-      map_permissions(p >>> 1, tail, acc)
+      bit_to_list(p >>> 1, tail, acc)
     end
   end
 
   @doc """
-  atom-list permission to bit-type permission
+  list-type permission to integer-type permission
 
   ## Examples
 
-      iex> BitPermission.to_bit_type([], [:create, :read, :write, :delete])
+      iex> BitPermission.to_integer([], [:create, :read, :write, :delete])
       0
 
-      iex> BitPermission.to_bit_type([:create], [:create, :read, :write, :delete])
+      iex> BitPermission.to_integer([:create], [:create, :read, :write, :delete])
       1
 
   """
-  # @spec to_bit_type(integer, list) :: list
-  # def to_bit_type(user, list) when is_list(user) and is_list(list) do
-  #   map_permissions(user, list, [])
-  # end
+  @spec to_integer(list, list) :: list
+  def to_integer(user, list) when is_list(user) and is_list(list) do
+    list_to_integer(user, list, 0)
+  end
+
+  defp list_to_integer(_, [], acc), do: acc
+  defp list_to_integer([], _, acc), do: acc
+  defp list_to_integer(user, [head | tail], acc) do
+    [u_head | u_tail] = user
+    if(u_head == head) do
+      list_to_integer(u_tail, tail, (acc <<< 1) + 1)
+    else
+      list_to_integer(user, tail, acc <<< 1)
+    end
+  end
 end
