@@ -1,21 +1,33 @@
 # BitPermission
 
-**TODO: Add description**
+Bitwise permission operate
+
+## Features
+
+* Eeay — Define you list-type permissions, convert to integer-type permissions, operate them using BitPermission!
+* Performance — Use erlang bitwise calculate.
+* Pure — All function are pure function.
 
 ## Installation
 
-If [available in Hex](https://hex.pm/docs/publish), the package can be installed
-by adding `bit_permission` to your list of dependencies in `mix.exs`:
+Add it to your deps list in `mix.exs`:
 
 ```elixir
-def deps do
+defp deps do
   [
-    {:bit_permission, "~> 0.1.0"}
+    {:bit_permission, github: "qwas368/BitPermission"}
   ]
 end
 ```
 
-Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
-and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
-be found at [https://hexdocs.pm/bit_permission](https://hexdocs.pm/bit_permission).
+Fetch mix dependencies by running:
+```sh
+$ mix deps.get
+```
 
+### Contributing
+
+Welcome contributions! This is my first github project and want to learn more.
+* You feel like an important feature is missing from the BitPermission, feel free to fork the project
+and open a pull request.
+* Since English is not my native language, please help to correct my spelling or grammar error.
