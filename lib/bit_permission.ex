@@ -9,18 +9,18 @@ defmodule BitPermission do
   ## Examples
 
       iex> BitPermission.can?(1, 1)
-      {:ok}
+      true
 
       iex> BitPermission.can?(1, 2)
-      {:error, :NO_PERMISSIONS}
+      false
 
   """
   @spec can?(integer, integer) :: boolean
   def can?(user, target) when is_integer(user) and is_integer(target) do
     if (user &&& target) != 0 do
-      {:ok}
+      true
     else
-      {:error, :NO_PERMISSIONS}
+      false
     end
   end
 

@@ -14,18 +14,18 @@ defmodule BitPermissionTest do
 
   test "can?/2 basic" do
     # 0b0001 & 0b0001
-    assert BitPermission.can?(1, 1) == {:ok}
+    assert BitPermission.can?(1, 1) == true
     # 0b0001 & 0b0010
-    assert BitPermission.can?(1, 2) == {:error, :NO_PERMISSIONS}
+    assert BitPermission.can?(1, 2) == false
     # 0b0010 & 0b0010
-    assert BitPermission.can?(2, 2) == {:ok}
+    assert BitPermission.can?(2, 2) == true
     # 0b0010 & 0b0011
-    assert BitPermission.can?(2, 3) == {:ok}
+    assert BitPermission.can?(2, 3) == true
   end
 
   test "can?/2 extreme" do
-    assert BitPermission.can?(1_000_000_000_000_000, 1) == {:error, :NO_PERMISSIONS}
-    assert BitPermission.can?(1_000_000_000_000_000, 1_000_000_000_000_000) == {:ok}
+    assert BitPermission.can?(1_000_000_000_000_000, 1) == false
+    assert BitPermission.can?(1_000_000_000_000_000, 1_000_000_000_000_000) == true
   end
 
   test "inherit/2  basic" do
