@@ -38,7 +38,7 @@ Change list-type permission to integer-type permission like:
 
 ```elixir
 # full permission (integer-type)
-full_permission = full_permission_list |> BitPermission.to_integer(full_permission_list)
+full_permission = full_permission_list |> BitPermission.to_integer
 
 # read permission (integer-type)
 read_permission = [:read] |> BitPermission.to_integer(full_permission_list)
