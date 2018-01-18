@@ -72,16 +72,33 @@ defmodule BitPermission do
   """
   @spec to_list(integer, list) :: list
   def to_list(user, list) when is_integer(user) and is_list(list) do
-    bit_to_list(user, list, [])
+    to_list(user, list, [])
   end
 
-  defp bit_to_list(_, [], acc), do: acc
-  defp bit_to_list(p, [head | tail], acc) do
+  defp to_list(_, [], acc), do: acc
+  defp to_list(p, [head | tail], acc) do
     if(Bitwise.band(p, 1) == 1) do
-      bit_to_list(p >>> 1, tail, acc ++ [head])
+      to_list(p >>> 1, tail, acc ++ [head])
     else
-      bit_to_list(p >>> 1, tail, acc)
+      to_list(p >>> 1, tail, acc)
     end
+  end
+
+  @doc """
+  list-type permission to integer-type permission
+
+  ## Examples
+
+      iex> BitPermission.to_integer([:create, :read, :write, :delete])
+      15
+
+      iex> BitPermission.to_integer(["Personal", "Group", "Admin"])
+      7
+
+  """
+  @spec to_integer(list) :: list
+  def to_integer(list) when is_list(list) do
+    to_integer(list, list, 0)
   end
 
   @doc """
@@ -98,17 +115,17 @@ defmodule BitPermission do
   """
   @spec to_integer(list, list) :: list
   def to_integer(user, list) when is_list(user) and is_list(list) do
-    list_to_integer(user, list, 0)
+    to_integer(user, list, 0)
   end
 
-  defp list_to_integer(_, [], acc), do: acc
-  defp list_to_integer([], _, acc), do: acc
-  defp list_to_integer(user, [head | tail], acc) do
+  defp to_integer(_, [], acc), do: acc
+  defp to_integer([], _, acc), do: acc
+  defp to_integer(user, [head | tail], acc) do
     [u_head | u_tail] = user
     if(u_head == head) do
-      list_to_integer(u_tail, tail, (acc <<< 1) + 1)
+      to_integer(u_tail, tail, (acc <<< 1) + 1)
     else
-      list_to_integer(user, tail, acc <<< 1)
+      to_integer(user, tail, acc <<< 1)
     end
   end
 end

@@ -68,6 +68,11 @@ defmodule BitPermissionTest do
     assert BitPermission.to_list(15, ["create", "read", "write", "delete"]) == ["create", "read", "write", "delete"]
   end
 
+  test "to_integer/1 basic" do
+    assert BitPermission.to_integer([]) == 0
+    assert BitPermission.to_integer([""]) == 1
+  end
+
   test "to_integer/2" do
     assert BitPermission.to_integer([], []) == 0
     assert BitPermission.to_integer([], [:create]) == 0

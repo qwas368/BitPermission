@@ -50,15 +50,13 @@ Create a user data with permission and use it
 user = %{name: "John", permission: read_permission}
 
 # can?
-case user[:permission] |> BitPermission.can?(full_permission) do
-  true -> ...
-  false -> ...
+if user[:permission] |> BitPermission.can?(full_permission) do
+  # can
+else
+  # can't
 end
 ```
 
-### Contributing
+### Help me
 
-Welcome contributions! This is my first github project and want to learn more.
-* You feel like an important feature is missing from the BitPermission, feel free to fork the project
-and open a pull request.
-* Since English is not my native language, please help to correct my spelling or grammar error.
+Since English is not my native language, feel free to pull your request to correct my spelling or grammar error. Thank you a lot.
